@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Твоя Наліпка - Каталог товарів</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Cormorant:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --global-color: #87CEEB; /* Світло-блакитний */
+            --accent-color: #4682B4; /* Темніший блакитний */
+            --dark-color: #2F4F4F; /* Темно-сірий */
+            --light-bg: #F0F8FF; /* Світло-блакитний фон */
+            --font-main: 'Montserrat', sans-serif;
+            --font-head: 'Cormorant', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, #F0F8FF 0%, #E6F3FF 100%);
+            color: var(--dark-color);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--global-color) 0%, var(--accent-color) 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(135, 206, 235, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo h1 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .contacts {
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .main-title {
+            text-align: center;
+            padding: 50px 0;
+            background: white;
+            margin: 30px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.2);
+        }
+
+        .main-title h2 {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .main-title p {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            opacity: 0.8;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(135, 206, 235, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(135, 206, 235, 0.25);
+            border-color: var(--global-color);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--global-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .category-title {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subcategories {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-bg);
+        }
+
+        .subcategories.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subcategory-item {
+            background: var(--light-bg);
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .subcategory-item:hover {
+            background: var(--global-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, var(--global-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+        }
+
+        .contact-section {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(135, 206, 235, 0.15);
+        }
+
+        .contact-section h3 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            padding: 25px;
+            background: var(--light-bg);
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--global-color);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .main-title h2 {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-gallery {
+            display: none;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--light-bg);
+        }
+
+        .product-gallery.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-item {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-item:hover {
+            border-color: var(--global-color);
+            transform: translateY(-5px);
+        }
+
+        .product-placeholder {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, var(--global-color), var(--accent-color));
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Твоя Наліпка</h1>
+                </div>
+                <div class="contacts">
+                    <p>📱 Telegram: @your_telegram</p>
+                    <p>📷 Instagram: @tvoya_nalipka</p>
+                    <p>📞 Телефон: +38 (0XX) XXX-XX-XX</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-title">
+            <h2>Каталог наших товарів</h2>
+            <p>Знайди свою унікальну наліпку або створи власний дизайн!</p>
+        </div>
+
+        <div class="categories-grid">
+            <!-- Стікерпаки -->
+            <div class="category-card">
+                <div class="category-icon">🎨</div>
+                <h3 class="category-title">Стікерпаки</h3>
+                <p>Готові набори наліпок на різні теми</p>
+                <button class="view-btn" onclick="toggleCategory('stickerpacks')">Переглянути категорії</button>
+                
+                <div id="stickerpacks" class="subcategories">
+                    <div class="subcategory-item" onclick="showProducts('cities')">
+                        🏙️ Міста
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('animals')">
+                        🐱 Тварини
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('memes')">
+                        😂 Меми
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('florki')">
+                        🌸 Флорки
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('limited-lamination')">
+                        ✨ Лімітоване ламінування
+                    </div>
+                </div>
+
+                <div id="cities" class="product-gallery">
+                    <h4>Наліпки міст</h4>
+                    <div class="product-grid">
+                        <div class="product-item">
+                            <div class="product-placeholder">Київ</div>
+                            <p>Стікерпак "Київ"</p>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-placeholder">Львів</div>
+                            <p>Стікерпак "Львів"</p>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-placeholder">Одеса</div>
+                            <p>Стікерпак "Одеса"</p>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-placeholder">Дніпро</div>
+                            <p>Стікерпак "Дніпро"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Листівки -->
+            <div class="category-card">
+                <div class="category-icon">💌</div>
+                <h3 class="category-title">Листівки</h3>
+                <p>Красиві листівки для всіх випадків</p>
+                <button class="view-btn" onclick="toggleCategory('postcards')">Переглянути категорії</button>
+                
+                <div id="postcards" class="subcategories">
+                    <div class="subcategory-item" onclick="showProducts('love')">
+                        💕 Кохання
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('support')">
+                        🤗 Підтримка
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('cute')">
+                        🥰 Милі
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('funny')">
+                        😄 Смішні
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('greetings')">
+                        🎉 Привітання
+                    </div>
+                </div>
+            </div>
+
+            <!-- Чашки -->
+            <div class="category-card">
+                <div class="category-icon">☕</div>
+                <h3 class="category-title">Чашки</h3>
+                <p>Персоналізовані чашки з вашими дизайнами</p>
+                <button class="view-btn" onclick="showProducts('cups')">Переглянути асортимент</button>
+            </div>
+
+            <!-- Поштучні наліпки -->
+            <div class="category-card">
+                <div class="category-icon">🏷️</div>
+                <h3 class="category-title">Поштучні наліпки</h3>
+                <p>Окремі наліпки на ваш вибір</p>
+                <button class="view-btn" onclick="toggleCategory('single-stickers')">Переглянути категорії</button>
+                
+                <div id="single-stickers" class="subcategories">
+                    <div class="subcategory-item" onclick="showProducts('regular-lamination')">
+                        📄 Звичайне ламінування
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('limited-single-lamination')">
+                        ✨ Лімітоване ламінування
+                    </div>
+                </div>
+            </div>
+
+            <!-- Об'ємні наліпки -->
+            <div class="category-card">
+                <div class="category-icon">🎯</div>
+                <h3 class="category-title">Об'ємні наліпки</h3>
+                <p>Наліпки з 3D ефектом</p>
+                <button class="view-btn" onclick="toggleCategory('3d-stickers')">Переглянути категорії</button>
+                
+                <div id="3d-stickers" class="subcategories">
+                    <div class="subcategory-item" onclick="showProducts('military')">
+                        🪖 Військові
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('cute-3d')">
+                        🥺 Милі
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('funny-3d')">
+                        🤪 Смішні
+                    </div>
+                    <div class="subcategory-item" onclick="showProducts('patriotic')">
+                        🇺🇦 Патріотичні
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h3>Як зробити замовлення?</h3>
+            <p>Знайшли те, що подобається? Зв'яжіться з нами будь-яким зручним способом!</p>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4>📱 Telegram</h4>
+                    <p>@your_telegram</p>
+                    <p>Швидкі відповіді та консультації</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h4>📷 Instagram</h4>
+                    <p>@tvoya_nalipka</p>
+                    <p>Дивіться наші роботи та новинки</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h4>📞 Телефон</h4>
+                    <p>+38 (0XX) XXX-XX-XX</p>
+                    <p>Дзвоніть у робочий час</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCategory(categoryId) {
+            const category = document.getElementById(categoryId);
+            const isActive = category.classList.contains('active');
+            
+            // Закриваємо всі категорії
+            document.querySelectorAll('.subcategories').forEach(sub => {
+                sub.classList.remove('active');
+            });
+            
+            // Закриваємо всі галереї товарів
+            document.querySelectorAll('.product-gallery').forEach(gallery => {
+                gallery.classList.remove('active');
+            });
+            
+            // Відкриваємо потрібну категорію, якщо вона не була активна
+            if (!isActive) {
+                category.classList.add('active');
+            }
+        }
+        
+        function showProducts(productType) {
+            // Закриваємо всі галереї
+            document.querySelectorAll('.product-gallery').forEach(gallery => {
+                gallery.classList.remove('active');
+            });
+            
+            // Відкриваємо потрібну галерею
+            const gallery = document.getElementById(productType);
+            if (gallery) {
+                gallery.classList.add('active');
+                gallery.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                // Якщо галереї немає, показуємо повідомлення
+                alert('Тут будуть товари з категорії: ' + getProductName(productType));
+            }
+        }
+        
+        function getProductName(productType) {
+            const names = {
+                'animals': 'Тварини',
+                'memes': 'Меми',
+                'florki': 'Флорки',
+                'limited-lamination': 'Лімітоване ламінування',
+                'love': 'Кохання',
+                'support': 'Підтримка',
+                'cute': 'Милі',
+                'funny': 'Смішні',
+                'greetings': 'Привітання',
+                'cups': 'Чашки',
+                'regular-lamination': 'Звичайне ламінування',
+                'limited-single-lamination': 'Лімітоване ламінування',
+                'military': 'Військові',
+                'cute-3d': 'Милі об\'ємні',
+                'funny-3d': 'Смішні об\'ємні',
+                'patriotic': 'Патріотичні'
+            };
+            return names[productType] || productType;
+        }
+    </script>
+</body>
+</html>
